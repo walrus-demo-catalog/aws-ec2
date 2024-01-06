@@ -1,0 +1,75 @@
+openapi: 3.0.3
+info:
+  title: OpenAPI schema for template aws-ec2
+components:
+  schemas:
+    variables:
+      type: object
+      required:
+      - instance_name
+      properties:
+        instance_name:
+          title: Instance Name
+          type: string
+          description: The instance name of the EC2 instance
+          x-walrus-ui:
+            order: 1
+        instance_type:
+          title: Instance Type
+          type: string
+          description: The instance type of the EC2 instance
+          default: t2.micro
+          enum:
+          - t2.micro
+          - t2.small
+          - t2.medium
+          - t2.large
+          - t2.xlarge
+          - t2.2xlarge
+          nullable: true
+          x-walrus-ui:
+            order: 2
+        volume_type:
+          title: Volume Type
+          type: string
+          description: The type of the root block device, defaults to the volume type
+            that the AMI uses, valid values are gp2, gp3, io1, io2, standard
+          default: gp2
+          enum:
+          - gp2
+          - gp3
+          - io1
+          - io2
+          - standard
+          nullable: true
+          x-walrus-ui:
+            order: 3
+        volume_size:
+          title: Volume Size
+          type: number
+          description: 'The size of the root block device, value range: [8, 16384]'
+          default: 30
+          minimum: 8
+          maximum: 16384
+          nullable: true
+          x-walrus-ui:
+            order: 4
+        init_script:
+          title: Init Script
+          type: string
+          description: User-defined init script to customize the startup behaviors
+            of the EC2 instance and to pass data into the EC2 instance, aka user_data
+          default: |
+            #!/bin/bash
+            apt update
+          nullable: true
+          x-walrus-ui:
+            order: 5
+        key_name:
+          title: Key Name
+          type: string
+          description: Name of the ssh private key, must already exist
+          default: seal-aws-tokyo
+          nullable: true
+          x-walrus-ui:
+            order: 6
